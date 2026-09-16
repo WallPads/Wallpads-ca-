@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WallPads.ca - Custom Safety Wallpadding</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            background: #1a1a1a;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 2rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #00a8e8;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0f3460 0%, #1a1a2e 100%);
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            max-width: 600px;
+        }
+
+        .cta-button {
+            background: #00a8e8;
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            background: #0088b8;
+            transform: translateY(-2px);
+        }
+
+        /* Product Showcase */
+        .showcase {
+            padding: 5rem 2rem;
+            background: white;
+        }
+
+        .showcase-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .showcase h2 {
+            font-size: 2.2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .carousel {
+            position: relative;
+            background: #f0f4f8;
+            border-left: 4px solid #0f3460;
+            padding: 3rem;
+            border-radius: 4px;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-item {
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+            position: absolute;
+            width: 100%;
+        }
+
+        .carousel-item.active {
+            opacity: 1;
+            position: relative;
+        }
+
+        .carousel-item h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #0f3460;
+        }
+
+        .carousel-item p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 1.5rem;
+        }
+
+        .carousel-item .specs {
+            font-family: 'Courier New', monospace;
+            background: #e8eef5;
+            padding: 1.5rem;
+            display: inline-block;
+            border-radius: 4px;
+            color: #2c3e50;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .carousel-dots {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .dot {
+            height: 10px;
+            width: 10px;
+            margin: 0 8px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .dot.active {
+            background-color: #0f3460;
+        }
+
+        /* About Section */
+        .about {
+            padding: 5rem 2rem;
+            background: #f8f9fa;
+        }
+
+        .about-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .about h2 {
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+
+        .about p {
+            font-size: 1.05rem;
+            margin-bottom: 1.5rem;
+            color: #444;
+            line-height: 1.8;
+        }
+
+        .highlight {
+            font-weight: 700;
+            color: #0f3460;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 5rem 2rem;
+            background: white;
+        }
+
+        .services-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .services h2 {
+            font-size: 2.2rem;
+            margin-bottom: 3rem;
+            font-weight: 700;
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: #f0f4f8;
+            padding: 2rem;
+            border-radius: 4px;
+            border-left: 4px solid #00a8e8;
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .service-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #0f3460;
+        }
+
+        .service-card p {
+            color: #555;
+            font-size: 0.95rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 5rem 2rem;
+            background: #0f3460;
+            color: white;
+            text-align: center;
+        }
+
+        .contact-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .contact p {
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            padding: 1rem;
+            border: none;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .contact-form input {
+            height: 50px;
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-form button {
+            background: #00a8e8;
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .contact-form button:hover {
+            background: #0088b8;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a1a;
+            color: #fff;
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            nav a {
+                margin-right: 1rem;
+                font-size: 0.85rem;
+            }
+
+            .showcase h2, .about h2, .services h2, .contact h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="#hero">WallPads.ca</a>
+        <a href="#showcase">Products</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Quote</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <h1>Custom Safety Wallpadding</h1>
+        <p>Professional-grade wall and corner padding designed for safety and durability. 10+ years of expertise.</p>
+        <a href="#contact" class="cta-button">Call for Quote</a>
+    </section>
+
+    <!-- Product Showcase -->
+    <section class="showcase" id="showcase">
+        <div class="showcase-container">
+            <h2>Our Products</h2>
+            <div class="carousel">
+                <div class="carousel-item active">
+                    <h3>Standard Wall Pad</h3>
+                    <p>Our most popular size for comprehensive wall coverage</p>
+                    <div class="specs">
+                        48 × 72 inches<br>
+                        (122 × 183 cm)
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <h3>Compact Wall Pad</h3>
+                    <p>Ideal for targeted coverage in smaller spaces</p>
+                    <div class="specs">
+                        24 × 72 inches<br>
+                        (61 × 183 cm)
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <h3>Column Padding</h3>
+                    <p>Wraps around pillars and support columns</p>
+                    <div class="specs">
+                        12 + 20 + 12 × 72 inches<br>
+                        (Configuration: left + center + right)
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <h3>Corner Pad with Custom Cutouts</h3>
+                    <p>Precision-cut corners, circles, rectangles, and shapes</p>
+                    <div class="specs">
+                        Custom dimensions available<br>
+                        Any shape you need
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-dots">
+                <span class="dot active" onclick="currentSlide(0)"></span>
+                <span class="dot" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+                <span class="dot" onclick="currentSlide(3)"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-container">
+            <h2>About WallPads.ca</h2>
+            <p>With <span class="highlight">over 10 years of experience</span> in safety wallpadding, we've become the trusted choice for facilities that demand the highest standards of protection.</p>
+            <p>From gymnasiums and training facilities to warehouses and commercial spaces, our custom-designed padding solutions are engineered to maximize safety without compromising on aesthetics.</p>
+            <p>We specialize in <span class="highlight">custom cutting</span> — logos, circles, rectangles, and any shape you can imagine. Every project is tailored to your exact specifications.</p>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="services-container">
+            <h2>What We Offer</h2>
+            <div class="service-grid">
+                <div class="service-card">
+                    <h3>Custom Design</h3>
+                    <p>Logos, cutouts, and shapes tailored to your space and brand.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Expert Installation</h3>
+                    <p>Professional installation ensuring perfect fit and maximum durability.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Durable Materials</h3>
+                    <p>High-quality padding built to withstand heavy use and impact.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Fast Turnaround</h3>
+                    <p>Quick production and delivery without compromising quality.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact/Quote Section -->
+    <section class="contact" id="contact">
+        <div class="contact-container">
+            <h2>Get Your Quote</h2>
+            <p>Tell us about your project and we'll create a custom solution that fits your needs and budget.</p>
+            <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Describe your project (space dimensions, custom shapes, etc.)" required></textarea>
+                <button type="submit">Send Quote Request</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 WallPads.ca. All rights reserved. | Custom Safety Wallpadding Solutions</p>
+    </footer>
+
+    <script>
+        let currentIndex = 0;
+        const items = document.querySelectorAll('.carousel-item');
+        const dots = document.querySelectorAll('.dot');
+
+        function showSlide(index) {
+            items.forEach(item => item.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            items[index].classList.add('active');
+            dots[index].classList.add('active');
+        }
+
+        function currentSlide(index) {
+            currentIndex = index;
+            showSlide(currentIndex);
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % items.length;
+            showSlide(currentIndex);
+        }
+
+        // Auto-cycle every 5 seconds
+        setInterval(nextSlide, 5000);
+    </script>
+</body>
+</html>
